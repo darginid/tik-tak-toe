@@ -13,7 +13,7 @@ module.exports = {
     extend: {
       lineHeight: {
         tight: "1.2",
-      }
+      },
     },
   },
   plugins: [],
