@@ -7,7 +7,7 @@ export function GameInfo({ className }) {
     <section
       className={clsx(
         className,
-        "flex justify-between rounded-2xl bg-white  shadow-md px-8 py-4",
+        "flex justify-between rounded-2xl bg-white shadow-md px-8 py-4",
       )}
     >
       <div className="flex items-center gap-3">
