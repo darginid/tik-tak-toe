@@ -14,7 +14,11 @@ export function Header() {
         Играть
       </UiButton>
       <button className="flex items-center gap-2 ml-auto text-teal-600 hover:text-teal-500 transition-colors">
-        <Profile className="hover:text-teal-500 transition-colors" />
+        <Profile
+          className="hover:text-teal-500 transition-colors"
+          name="Salikhovfront"
+          rating="1230"
+        />
         <ArrowBottom />
       </button>
     </header>
