@@ -4,7 +4,7 @@ import { StarIcon } from "./icons/star-icon";
 import { UserIcon } from "./icons/user-icon";
 import { HistoryIcon } from "./icons/history-icon";
 
-export function GameTitle() {
+export function GameTitle({ playersCount }) {
   return (
     <section className="pl-2">
       <Link
@@ -18,7 +18,7 @@ export function GameTitle() {
       <div className="flex items-center gap-3 text-slate-400 text-xs">
         <StarIcon />
         <div className="flex items-center gap-1 leading-tight">
-          <UserIcon />2
+          <UserIcon /> {playersCount}
         </div>
         <div className="flex items-center gap-1 leading-tight">
           <HistoryIcon />1 мин на ход
