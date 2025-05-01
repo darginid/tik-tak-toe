@@ -10,7 +10,7 @@ function getNextMove(currentMove, playersCount) {
 export function useGameState(playersCount) {
   const [{ cells, currentMove }, setGameState] = useState(() => ({
     cells: new Array(19 * 19).fill(null),
-    currentMove: GAME_SYMBOLS.ZERO,
+    currentMove: GAME_SYMBOLS.CROSS,
   }));
 
   const nextMove = getNextMove(currentMove, playersCount);
