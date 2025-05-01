@@ -4,7 +4,7 @@ import { ZeroIcon } from "./icons/zero-icon";
 import { TriangleIcon } from "./icons/triangle-icon";
 import { SquareIcon } from "./icons/square-icon";
 
-export function GameSymbol({ symbol, className }) {
+export function GameSymbol({ className, symbol }) {
   const Icon =
     {
       [GAME_SYMBOLS.CROSS]: CrossIcon,

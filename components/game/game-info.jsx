@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Profile } from "../profile";
 import { GameSymbol } from "./game-symbol";
@@ -39,7 +40,7 @@ const players = [
   },
 ];
 
-export function GameInfo({ className, playersCount }) {
+export function GameInfo({ className, playersCount, currentMove }) {
   return (
     <section
       className={clsx(
@@ -48,13 +49,44 @@ export function GameInfo({ className, playersCount }) {
       )}
     >
       {players.slice(0, playersCount).map((player) => (
-        <PlayerInfo key={player.id} playerInfo={player} />
+        <PlayerInfo
+          key={player.id}
+          playerInfo={player}
+          isTimerRunning={currentMove === player.symbol}
+        />
       ))}
     </section>
   );
 }
 
-function PlayerInfo({ playerInfo }) {
+function PlayerInfo({ playerInfo, isTimerRunning }) {
+  const [seconds, setSeconds] = useState(12);
+
+  const minutesString = String(Math.floor(seconds / 60)).padStart(2, "0");
+  const secondsString = String(Math.floor(seconds % 60)).padStart(2, "0");
+
+  const isDanger = seconds < 10;
+
+  useEffect(() => {
+    if (isTimerRunning) {
+      const interval = setInterval(() => {
+        setSeconds((s) => Math.max(s - 1, 0));
+      }, 1000);
+
+      return () => {
+        clearInterval(interval);
+        setSeconds(60);
+      };
+    }
+  }, [isTimerRunning]);
+
+  const getTimerRunning = () => {
+    if (isTimerRunning) {
+      return isDanger ? "text-orange-600" : "text-slate-900";
+    }
+    return "text-slate-400";
+  };
+
   return (
     <div className="flex items-center gap-3 even:flex-row-reverse">
       <div className="relative">
@@ -69,7 +101,11 @@ function PlayerInfo({ playerInfo }) {
         </div>
       </div>
       <div className="h-6 w-px bg-slate-200" />
-      <div className="text-slate-900 text-lg font-semibold">01:00</div>
+      <div
+        className={clsx("text-lg font-semibold w-[60px]", getTimerRunning())}
+      >
+        {minutesString}:{secondsString}
+      </div>
     </div>
   );
 }
