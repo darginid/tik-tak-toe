@@ -40,7 +40,13 @@ const players = [
   },
 ];
 
-export function GameInfo({ className, playersCount, currentMove }) {
+export function GameInfo({
+  className,
+  playersCount,
+  currentMove,
+  isWinner,
+  onPlayerTimeOver,
+}) {
   return (
     <section
       className={clsx(
@@ -52,15 +58,16 @@ export function GameInfo({ className, playersCount, currentMove }) {
         <PlayerInfo
           key={player.id}
           playerInfo={player}
-          isTimerRunning={currentMove === player.symbol}
+          isTimerRunning={currentMove === player.symbol && !isWinner}
+          onTimeOver={() => onPlayerTimeOver(player.symbol)}
         />
       ))}
     </section>
   );
 }
 
-function PlayerInfo({ playerInfo, isTimerRunning }) {
-  const [seconds, setSeconds] = useState(12);
+function PlayerInfo({ playerInfo, isTimerRunning, onTimeOver }) {
+  const [seconds, setSeconds] = useState(6);
 
   const minutesString = String(Math.floor(seconds / 60)).padStart(2, "0");
   const secondsString = String(Math.floor(seconds % 60)).padStart(2, "0");
@@ -75,10 +82,16 @@ function PlayerInfo({ playerInfo, isTimerRunning }) {
 
       return () => {
         clearInterval(interval);
-        setSeconds(60);
+        setSeconds(6);
       };
     }
   }, [isTimerRunning]);
+
+  useEffect(() => {
+    if (seconds === 0) {
+      onTimeOver();
+    }
+  }, [seconds]);
 
   const getTimerRunning = () => {
     if (isTimerRunning) {

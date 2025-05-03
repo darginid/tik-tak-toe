@@ -8,6 +8,8 @@ export function GameField({
   currentMove,
   nextMove,
   handleCellClick,
+  winnerSequence,
+  winnerSymbol,
 }) {
   const actions = (
     <>
@@ -27,22 +29,31 @@ export function GameField({
         currentMove={currentMove}
         nextMove={nextMove}
       />
-      <GameGridLayout className={className}>
+      <GameGrid className={className}>
         {cells.map((symbol, i) => (
-          <GameCell key={i} onClick={() => handleCellClick(i)}>
+          <GameCell
+            key={i}
+            isWinner={winnerSequence?.includes(i)}
+            onClick={() => handleCellClick(i)}
+            disabled={!!winnerSymbol}
+          >
             {symbol && <GameSymbol className="w-5 h-5" symbol={symbol} />}
           </GameCell>
         ))}
-      </GameGridLayout>
+      </GameGrid>
     </GameFieldLayout>
   );
 }
 
-function GameCell({ children, onClick }) {
+function GameCell({ children, onClick, isWinner, disabled }) {
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
-      className="flex items-center justify-center border border-slate-200 -ml-px -mt-px"
+      className={clsx(
+        "flex items-center justify-center border border-slate-200 -ml-px -mt-px",
+        isWinner && "bg-orange-600/10",
+      )}
     >
       {children}
     </button>
@@ -80,7 +91,7 @@ function GameMoveInfo({ actions, currentMove, nextMove }) {
   );
 }
 
-function GameGridLayout({ children }) {
+function GameGrid({ children }) {
   return (
     <div className="grid grid-cols-[repeat(19,_30px)] grid-rows-[repeat(19,_30px)] pl-px pt-px mt-3">
       {children}
