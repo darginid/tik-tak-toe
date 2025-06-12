@@ -1,14 +1,3 @@
-import { MOVE_ORDER } from "./constants";
-
-export function getNextMove(currentMove, playersCount, playersTimeOver) {
-  const sliceMoveOrder = MOVE_ORDER.slice(0, playersCount).filter(
-    (symbol) => !playersTimeOver.includes(symbol),
-  );
-
-  const nextMoveIndex = sliceMoveOrder.indexOf(currentMove) + 1;
-  return sliceMoveOrder[nextMoveIndex] ?? sliceMoveOrder[0];
-}
-
 export function computeWinner(cells, sequenceSize = 5, fieldSize = 19) {
   // Направления для проверки:
   // 1. Горизонталь (вправо)

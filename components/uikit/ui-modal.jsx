@@ -60,8 +60,6 @@ export function UiModal({
       </div>
     </div>
   );
-
-  return createPortal(modal, document.getElementById("modals"));
 }
 
 UiModal.Header = function UiModalHeader({ children, className }) {
