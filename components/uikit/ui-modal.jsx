@@ -5,8 +5,8 @@ import { createPortal } from "react-dom";
  * @param {{
  * className: string,
  * width: 'md' | 'full',
- * isOpen: boolean
- * onClese: Function
+ * isOpen: boolean,
+ * onClose: Function
  * }} props
  * @returns
  */
